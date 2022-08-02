@@ -103,6 +103,9 @@ function srpwp_paypal_ipn_shortcode() {
 
         if ( $submission_insert ) {
             echo '<h1>Thank you so much for your donation, we just received it.</h1>';
+
+            require_once STRIPE_PLUGIN_DIR_PATH . 'includes/email-template.php'; 
+            srpwp_mail_function ( $srpwp_donor_email, $srpwp_first_name, $srpwp_payment_type, $srpwp_mc_gross );
         } else {
             echo '<h1>Sorry! There is a problem please contact with the admin.</h1>';
         }

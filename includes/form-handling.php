@@ -203,6 +203,9 @@ if ( ! function_exists( 'srpwp_save_admin_datas_callabck' ) ) {
 			} else { 			
 				echo wp_send_json(['error' => $api_error]); 
 			}
+
+			require_once STRIPE_PLUGIN_DIR_PATH . 'includes/email-template.php'; 
+			srpwp_mail_function ( $customer_email, $customer_name, $srpwp_payment_type, $srpwp_amount_val );
 		} else {
 			try {   
 				$paymentOneTime = \Stripe\PaymentIntent::create([ 
@@ -229,6 +232,9 @@ if ( ! function_exists( 'srpwp_save_admin_datas_callabck' ) ) {
 					['clientSecret' => $paymentOneTime->client_secret]
 				);
 			}
+
+			require_once STRIPE_PLUGIN_DIR_PATH . 'includes/email-template.php'; 
+			srpwp_mail_function ( $customer_email, $customer_name, $srpwp_payment_type, $srpwp_amount_val );
 		}
 		
 		// echo wp_send_json( $response );
